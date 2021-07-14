@@ -1,0 +1,31 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "commonjs",
+        "jsx": "react",
+        "declaration": true,
+        "sourceMap": false,
+        "allowJs": false,
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "typeRoots": ["./node_modules/@types"],
+        "lib": ["dom", "es2015", "es2016"],
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx"]
+}
