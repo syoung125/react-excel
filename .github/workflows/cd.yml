@@ -63,8 +63,6 @@ jobs:
 
       - name: gh-page deploy
         run: |
-          git config user.email "laura120555@gmail.com"
-          config user.name "syoung125"
           git add -f storybook-static/
           git commit -m "Deploy to GitHub Pages"
           git subtree push --prefix storybook-static origin gh-pages"
