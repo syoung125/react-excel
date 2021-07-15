@@ -62,9 +62,7 @@ jobs:
         run: yarn build:storybook
 
       - name: gh-page deploy
-        if: matrix.node-version == '12.x'
-        uses: maxheld83/ghpages@v0.3.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GH_PAT: ${{ secrets.GH_PAT }}
-          BUILD_DIR: 'storybook-static/'
+        run: |
+          git add -f storybook-static/
+          git commit -m "Deploy to GitHub Pages"
+          git subtree push --prefix storybook-static origin gh-pages"
