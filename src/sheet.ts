@@ -15,7 +15,7 @@ export default class Sheet {
     this.data = data;
   }
 
-  validateName(name: string) {
+  private validateName(name: string) {
     if (name === null || name.length === 0) {
       throw Error('Invalid file name provided');
     }
