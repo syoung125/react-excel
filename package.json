@@ -17,7 +17,8 @@
     "test": "yarn format && yarn lint",
     "build": "rimraf -rf dist && tsc -p tsconfig.json",
     "build:storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "deploy": "yarn build:storybook && git add -f storybook-static/ && git commit -m \"Deploy to GitHub Pages\" && git subtree push --prefix storybook-static origin gh-pages"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
