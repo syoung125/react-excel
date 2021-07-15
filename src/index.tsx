@@ -1,5 +1,4 @@
-import ExcelDownload from './excel-download';
+export * from './excel-download-button';
+export * from './sheet';
 
 export * from './types';
-
-export default ExcelDownload;

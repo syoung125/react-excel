@@ -1,43 +1,43 @@
 import XLSX, { WorkSheet } from 'xlsx';
 
-import { ExcelSheetType, ExcelColumnsType } from 'src/types';
+import { FileExtensionType } from './types';
 
-class Sheet {
+export default class Sheet {
   name: string;
-  private dataSet: any[];
-  private columns: ExcelColumnsType;
-  aoa: any[][];
-  worksheet: WorkSheet;
+  extension: string;
+  data: any[][];
 
-  constructor(excelSheet: ExcelSheetType) {
-    const { name, columns, dataSet } = excelSheet;
+  constructor(name: string, extension: FileExtensionType, data: any[][]) {
+    this.validateName(name);
+
     this.name = name;
-    this.columns = columns;
-    this.dataSet = dataSet;
-
-    this.aoa = this.getAoa();
-    this.worksheet = this.getWorkSheet();
+    this.extension = extension;
+    this.data = data;
   }
 
-  /** Converts sheet to an array of arrays. */
-  private getAoa(): any[][] {
-    const columns: string[] = this.columns.map(({ label }) => label);
-    const rows: any[] = this.dataSet.map((record) =>
-      this.columns.map(({ key, value }) => {
-        if (value) {
-          return value(record);
-        }
-        return record[key];
-      })
-    );
-
-    return [columns, ...rows];
+  validateName(name: string) {
+    if (name === null || name.length === 0) {
+      throw Error('Invalid file name provided');
+    }
+    return true;
   }
 
-  /** Converts an array of arrays of JS data to a worksheet. */
-  private getWorkSheet(): WorkSheet {
-    return XLSX.utils.aoa_to_sheet(this.aoa);
+  getFileNameWithExtension() {
+    return `${this.name}.${this.extension}`;
+  }
+
+  getWorkSheet(): WorkSheet {
+    return XLSX.utils.aoa_to_sheet(this.data);
+  }
+
+  getWorkBook() {
+    const workbook = XLSX.utils.book_new();
+    const worksheet = this.getWorkSheet();
+    XLSX.utils.book_append_sheet(workbook, worksheet, this.name);
+    return workbook;
+  }
+
+  download() {
+    XLSX.writeFile(this.getWorkBook(), this.getFileNameWithExtension());
   }
 }
-
-export default Sheet;
