@@ -7,7 +7,9 @@
     "excel",
     "excel-export",
     "excel-download",
-    "typescript"
+    "typescript",
+    "xlsx",
+    "csv"
   ],
   "description": "Well-typed React Component for Downloading Excel File",
   "main": "dist/index.js",
@@ -16,6 +18,8 @@
     "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "test": "yarn format && yarn lint",
     "build": "rimraf -rf dist && tsc -p tsconfig.json",
+    "prepublish": "yarn test && yarn build",
+    "publish": "yarn prepublish && npm publish --public",
     "build:storybook": "build-storybook",
     "storybook": "start-storybook -p 6006",
     "deploy": "yarn build:storybook && git add -f storybook-static/ && git commit -m \"Deploy to GitHub Pages\" && git subtree push --prefix storybook-static origin gh-pages"
@@ -43,6 +47,15 @@
     "react": "^17.0.2"
   },
   "dependencies": {
+    "dayjs": "^1.10.6",
     "xlsx": "^0.17.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEV-MUGLES/react-excel-download"
+  },
+  "bugs": {
+    "url": "https://github.com/DEV-MUGLES/react-excel-download/issues"
   }
 }
