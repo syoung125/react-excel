@@ -88,6 +88,30 @@ sheet.setOptions({ dateFormat: 'YY/MM/DD' });
 sheet.download();
 ```
 
+## constructor
+
+```
+constructor(name: string, extension: FileExtensionType, data: CellType[][], options?: SheetOptions)
+```
+
+## properties
+
+| Props     | Type              | Default | Required |
+| --------- | ----------------- | ------- | -------- |
+| name      | string            |         | true     |
+| extension | FileExtensionType |         | true     |
+| data      | CellType[][]      |         | true     |
+| options   | SheetOptions      | {}      | false    |
+
+## methods
+
+| Method                                       | Description                                   |
+| -------------------------------------------- | --------------------------------------------- |
+| download(extension?: FileExtensionType):void | download xlsx or csv sheet                    |
+| createWorkBook(): WorkBook                   | create and return workbook                    |
+| convertToWorkSheet(): WorkSheet              | convert aoa to worksheet and return worksheet |
+| setOptions(options: SheetOptions):void       | Set sheet options                             |
+
 # 3. Helper
 
 ## generateTableData (helper)
