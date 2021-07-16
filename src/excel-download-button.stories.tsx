@@ -40,7 +40,7 @@ export const withStyle = () => {
   );
 };
 
-export const withChildren = () => {
+export const withElement = () => {
   const CustomDownloadButton = (
     <div
       style={{
