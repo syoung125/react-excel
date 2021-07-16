@@ -50,6 +50,7 @@
     "dayjs": "^1.10.6",
     "xlsx": "^0.17.0"
   },
+  "author": "syoung125",
   "license": "MIT",
   "repository": {
     "type": "git",
