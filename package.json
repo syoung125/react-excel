@@ -1,6 +1,6 @@
 {
   "name": "@pickk/react-excel-download",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "keywords": [
     "react",
     "reactjs",
@@ -50,7 +50,7 @@
     "dayjs": "^1.10.6",
     "xlsx": "^0.17.0"
   },
-  "author": "syoung125",
+  "author": "syoung125 <laura120555@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
