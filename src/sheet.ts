@@ -1,13 +1,15 @@
 import XLSX, { WorkSheet } from 'xlsx';
+import dayjs from 'dayjs';
 
-import { FileExtensionType } from './types';
+import { CellType, FileExtensionType, SheetOptions } from './types';
 
 export default class Sheet {
-  name: string;
-  extension: string;
-  data: any[][];
+  readonly name: string;
+  readonly extension: FileExtensionType;
+  readonly data: CellType[][];
+  private options: SheetOptions = {};
 
-  constructor(name: string, extension: FileExtensionType, data: any[][]) {
+  constructor(name: string, extension: FileExtensionType, data: CellType[][]) {
     this.validateName(name);
 
     this.name = name;
@@ -22,22 +24,56 @@ export default class Sheet {
     return true;
   }
 
-  getFileNameWithExtension() {
-    return `${this.name}.${this.extension}`;
+  private joinNameAndExtension(name: string, extension: FileExtensionType) {
+    return `${name}.${extension}`;
   }
 
-  getWorkSheet(): WorkSheet {
-    return XLSX.utils.aoa_to_sheet(this.data);
+  private preprocessData(_data: CellType[][]) {
+    const data: string[][] = _data.map((row) =>
+      row.map((cell) => {
+        if (typeof cell === 'string') {
+          return cell;
+        }
+        if (typeof cell === 'number') {
+          return cell.toString();
+        }
+        if (typeof cell === 'boolean') {
+          return cell.toString().toUpperCase();
+        }
+        if (Object.prototype.toString.call(cell) === '[object Date]') {
+          const date = cell as Date;
+          return dayjs(date).format(this.options?.dateFormat || 'YYYY-MM-DD');
+        }
+        if (typeof cell === 'object') {
+          return JSON.stringify(cell);
+        }
+
+        return '';
+      })
+    );
+    return data;
   }
 
-  getWorkBook() {
+  setOptions(options: SheetOptions) {
+    this.options = options;
+  }
+
+  convertToWorkSheet(): WorkSheet {
+    return XLSX.utils.aoa_to_sheet(this.preprocessData(this.data));
+  }
+
+  createWorkBook() {
     const workbook = XLSX.utils.book_new();
-    const worksheet = this.getWorkSheet();
+    const worksheet = this.convertToWorkSheet();
     XLSX.utils.book_append_sheet(workbook, worksheet, this.name);
     return workbook;
   }
 
-  download() {
-    XLSX.writeFile(this.getWorkBook(), this.getFileNameWithExtension());
+  download(extension?: FileExtensionType) {
+    const fileFullName = this.joinNameAndExtension(
+      this.name,
+      extension || this.extension
+    );
+    XLSX.writeFile(this.createWorkBook(), fileFullName);
   }
 }

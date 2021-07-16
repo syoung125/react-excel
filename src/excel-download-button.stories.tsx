@@ -12,8 +12,8 @@ export default {
 
 const data = [
   ['이름', '랜덤숫자', '결제여부'],
-  ['syoung', 123, true],
-  ['greatSumini', 456, false],
+  ['syoung', 123, { hi: 1 }],
+  ['greatSumini', 456, new Date()],
   ['ybh', 678, true],
 ];
 
@@ -24,7 +24,8 @@ const DefaultTemplate: Story<ExcelDownloadButtonProps> = (
 export const Default = DefaultTemplate.bind({});
 Default.args = {
   fileName: 'new_excel_file',
-  data: data,
+  data,
+  sheetOptions: { dateFormat: 'YYYY/MM/DD' },
 };
 
 export const withStyle = () => {
