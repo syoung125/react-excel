@@ -4,7 +4,7 @@ A data export library built with and for React.
 
 support file extensions: .xlsx, .csv
 
-# 1. Getting Started
+## 1. Getting Started
 
 ```bash
 npm i --save @pickk/react-excel-download
@@ -12,9 +12,9 @@ npm i --save @pickk/react-excel-download
 yarn add @pickk/react-excel-download
 ```
 
-# 2. Usage
+## 2. Usage
 
-# 2.1 ExcelDownloadButton
+## 2.1 ExcelDownloadButton
 
 ```jsx
 const data = [
@@ -38,7 +38,7 @@ const data = [
 </>
 ```
 
-## ExcelDownloadButton Props
+### ExcelDownloadButton Props
 
 | Props         | Type                | Default | Required | Description                                                             |
 | ------------- | ------------------- | ------- | -------- | ----------------------------------------------------------------------- |
@@ -49,7 +49,7 @@ const data = [
 | element       | React.ReactElement  | null    | false    | Custom button element (When it's null, default button will be rendered) |
 | sheetOption   | SheetOptions        |         | false    | set sheet options (ex) dateFormat )                                     |
 
-## Types
+### Types
 
 ```ts
 export type FileExtensionType = 'xlsx' | 'csv';
@@ -66,7 +66,7 @@ export type ExcelDownloadButtonProps = {
 };
 ```
 
-# 2.2 Sheet class
+## 2.2 Sheet class
 
 You can generate excel sheet and download it.
 
@@ -88,13 +88,13 @@ sheet.setOptions({ dateFormat: 'YY/MM/DD' });
 sheet.download();
 ```
 
-## constructor
+### constructor
 
 ```
 constructor(name: string, extension: FileExtensionType, data: CellType[][], options?: SheetOptions)
 ```
 
-## properties
+### properties
 
 | Props     | Type              | Default | Required |
 | --------- | ----------------- | ------- | -------- |
@@ -103,7 +103,7 @@ constructor(name: string, extension: FileExtensionType, data: CellType[][], opti
 | data      | CellType[][]      |         | true     |
 | options   | SheetOptions      | {}      | false    |
 
-## methods
+### methods
 
 | Method                                       | Description                                   |
 | -------------------------------------------- | --------------------------------------------- |
@@ -112,7 +112,7 @@ constructor(name: string, extension: FileExtensionType, data: CellType[][], opti
 | convertToWorkSheet(): WorkSheet              | convert aoa to worksheet and return worksheet |
 | setOptions(options: SheetOptions):void       | Set sheet options                             |
 
-# 3. Helper
+## 3. Helper
 
 ## generateTableData (helper)
 
@@ -177,5 +177,5 @@ const aoaData = generateTableData(data, columns);
 
 ## 4. Links
 
-- [GitHub](https://github.com/DEV-MUGLES/react-excel-download)
-- [Storybook](https://dev-mugles.github.io/react-excel-download/)
+- [![GitHub](https://img.shields.io/badge/-Github-333333)](https://github.com/DEV-MUGLES/react-excel-download)
+- [![Storybook](https://img.shields.io/badge/-Storybook-ff69b4)](https://dev-mugles.github.io/react-excel-download/)
