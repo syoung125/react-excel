@@ -1,5 +1,5 @@
-export * from './excel-download-button';
-export * from './sheet';
-
 export * from './helpers';
 export * from './types';
+
+export { default as ExcelDownloadButton } from './excel-download-button';
+export { default as Sheet } from './sheet';
