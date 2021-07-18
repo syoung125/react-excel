@@ -18,11 +18,11 @@ function ExcelDownloadButton({
 
   const renderDefaultButton = () => {
     const label = {
-      xlsx: '엑셀',
+      xlsx: 'Excel',
       csv: 'CSV',
     }[fileExtension];
 
-    return <button style={style}>{label} 다운</button>;
+    return <button style={style}>{label} Download</button>;
   };
 
   return <span onClick={handleClick}>{element || renderDefaultButton()}</span>;
