@@ -1,6 +1,8 @@
 # react-excel-download
 
 [![codecov](https://codecov.io/gh/DEV-MUGLES/react-excel-download/branch/master/graph/badge.svg?token=JMAOQ5VL5T)](https://codecov.io/gh/DEV-MUGLES/react-excel-download)
+[![CI](https://img.shields.io/github/workflow/status/DEV-MUGLES/react-excel-download/CI?label=CI)](https://github.com/greatSumini/react-facebook-login/actions/workflows/ci.yml)
+[![GitHub Stars](https://img.shields.io/github/stars/DEV-MUGLES/react-excel-download?style=social)](https://github.com/DEV-MUGLES/react-excel-download)
 
 A data export library built with and for React.
 
