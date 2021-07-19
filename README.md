@@ -1,5 +1,7 @@
 # react-excel-download
 
+[![codecov](https://codecov.io/gh/DEV-MUGLES/react-excel-download/branch/master/graph/badge.svg?token=JMAOQ5VL5T)](https://codecov.io/gh/DEV-MUGLES/react-excel-download)
+
 A data export library built with and for React.
 
 support file extensions: .xlsx, .csv
