@@ -1,8 +1,8 @@
-# react-excel-download
+# react-excel
 
-[![codecov](https://codecov.io/gh/DEV-MUGLES/react-excel-download/branch/master/graph/badge.svg?token=JMAOQ5VL5T)](https://codecov.io/gh/DEV-MUGLES/react-excel-download)
-[![CI](https://img.shields.io/github/workflow/status/DEV-MUGLES/react-excel-download/CI?label=CI)](https://github.com/greatSumini/react-facebook-login/actions/workflows/ci.yml)
-[![GitHub Stars](https://img.shields.io/github/stars/DEV-MUGLES/react-excel-download?style=social)](https://github.com/DEV-MUGLES/react-excel-download)
+[![codecov](https://codecov.io/gh/DEV-MUGLES/react-excel/branch/master/graph/badge.svg?token=JMAOQ5VL5T)](https://codecov.io/gh/DEV-MUGLES/react-excel)
+[![CI](https://img.shields.io/github/workflow/status/DEV-MUGLES/react-excel/CI?label=CI)](https://github.com/DEV-MUGLES/react-excel/actions/workflows/ci.yml)
+[![GitHub Stars](https://img.shields.io/github/stars/DEV-MUGLES/react-excel?style=social)](https://github.com/DEV-MUGLES/react-excel)
 
 A data export library built with and for React.
 
@@ -11,9 +11,9 @@ support file extensions: .xlsx, .csv
 ## 1. Getting Started
 
 ```bash
-npm i --save @pickk/react-excel-download
+npm i --save @pickk/react-excel
 # or
-yarn add @pickk/react-excel-download
+yarn add @pickk/react-excel
 ```
 
 ## 2. Usage
@@ -181,5 +181,5 @@ const aoaData = generateTableData(data, columns);
 
 ## 4. Links
 
-- [![GitHub](https://img.shields.io/badge/-Github-333333)](https://github.com/DEV-MUGLES/react-excel-download)
-- [![Storybook](https://img.shields.io/badge/-Storybook-ff69b4)](https://dev-mugles.github.io/react-excel-download/)
+- [![GitHub](https://img.shields.io/badge/-Github-333333)](https://github.com/DEV-MUGLES/react-excel)
+- [![Storybook](https://img.shields.io/badge/-Storybook-ff69b4)](https://dev-mugles.github.io/react-excel/)
