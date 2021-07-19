@@ -10,6 +10,9 @@ const MOCK_DATA = [
 ];
 
 describe('Sheet class', () => {
+  const sheet = new Sheet('new_file', 'xlsx', MOCK_DATA);
+  const sheetPrototype = Object.getPrototypeOf(sheet);
+
   it('throws error when it gets invalid fileName', () => {
     const errorMessage = 'Invalid file name provided';
     expect(() => {
@@ -18,9 +21,6 @@ describe('Sheet class', () => {
   });
 
   describe('preprocessData', () => {
-    const sheet = new Sheet('new_file', 'xlsx', MOCK_DATA);
-    const sheetPrototype = Object.getPrototypeOf(sheet);
-
     const cases = [
       {
         name: 'string',
@@ -66,5 +66,15 @@ describe('Sheet class', () => {
     const sheet = new Sheet(sheetName, 'xlsx', MOCK_DATA);
     const sheetNames = sheet.createWorkBook().SheetNames;
     expect(sheetName).toEqual(sheetNames[0]);
+  });
+
+  it('joins name and extension', () => {
+    const result = sheetPrototype.joinNameAndExtension('new_file', 'xlsx');
+    expect(result).toEqual('new_file.xlsx');
+  });
+
+  it('set options', () => {
+    sheetPrototype.setOptions({ dateFormat: 'YY/MM/DD' });
+    expect(sheetPrototype.options).toEqual({ dateFormat: 'YY/MM/DD' });
   });
 });
