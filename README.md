@@ -1,5 +1,8 @@
 # react-excel
 
+[![NPM Version](https://img.shields.io/bundlephobia/min/@pickk/react-excel)](https://www.npmjs.com/package/@pickk/react-excel)
+[![NPM Version](https://img.shields.io/npm/v/@pickk/react-excel)](https://www.npmjs.com/package/@pickk/react-excel)
+[![license](https://img.shields.io/npm/l/@pickk/react-excel)](https://github.com/DEV-MUGLES/react-excel/blob/master/LICENSE)
 [![codecov](https://codecov.io/gh/DEV-MUGLES/react-excel/branch/master/graph/badge.svg?token=JMAOQ5VL5T)](https://codecov.io/gh/DEV-MUGLES/react-excel)
 [![CI](https://img.shields.io/github/workflow/status/DEV-MUGLES/react-excel/CI?label=CI)](https://github.com/DEV-MUGLES/react-excel/actions/workflows/ci.yml)
 [![GitHub Stars](https://img.shields.io/github/stars/DEV-MUGLES/react-excel?style=social)](https://github.com/DEV-MUGLES/react-excel)
