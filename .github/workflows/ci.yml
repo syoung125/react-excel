@@ -3,9 +3,17 @@
 
 name: CI
 
-on: [push, pull_request]
-  paths-ignore:
-    - '**.md'
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - .gitignore
+      - .github/**
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - .gitignore
+      - .github/**
 
 jobs:
   build:
@@ -62,7 +70,6 @@ jobs:
 
       - name: Lint check
         run: yarn lint
-
 
   test:
     name: Test
