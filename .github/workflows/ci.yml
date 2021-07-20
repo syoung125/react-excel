@@ -69,11 +69,6 @@ jobs:
       - name: Lint check
         run: yarn lint
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Run the tests
         run: yarn test
 
