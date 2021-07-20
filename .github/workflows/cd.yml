@@ -1,0 +1,64 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: CD
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - .gitignore
+
+jobs:
+  deploy:
+    name: CD
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # 👈 Required to retrieve git history
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Get npm cache directory path
+        id: npm-cache
+        run: echo "::set-output name=dir::$(npm config get cache)"
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+
+      - name: Install project dependencies
+        if: |
+          steps.npm-cache.outputs.cache-hit != 'true' ||
+          steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build storybook
+        run: npm run build:storybook
+
+      - name: Deploy storybook to gh-pages
+        working-directory: ./storybook-static
+        env:
+          REMOTE_REPO: https://${{ secrets.GH_PAT }}@github.com/DEV-MUGLES/react-excel.git
+          REMOTE_BRANCH: gh-pages
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+          git init
+          git add .
+          git commit -m 'Deploy to GitHub Pages' 
+          git push --force ${{ env.REMOTE_REPO }} master:${{ env.REMOTE_BRANCH }} 
+          echo "Content of $BUILD_DIR has been deployed to GitHub Pages."
