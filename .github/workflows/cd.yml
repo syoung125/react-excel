@@ -4,7 +4,9 @@
 name: CD
 
 on:
-  pull_request:
+  push:
+    branches:
+      - master
     paths-ignore:
       - '**.md'
       - .gitignore
@@ -56,7 +58,6 @@ jobs:
           REMOTE_REPO: https://${{ secrets.GH_PAT }}@github.com/DEV-MUGLES/react-excel.git
           REMOTE_BRANCH: gh-pages
         run: |
-          echo "::set-output name=dir::$(npm config get cache)"
           git init
           git config user.name "syoung125"
           git config user.email "laura120555@gmail.com"
