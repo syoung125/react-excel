@@ -1,4 +1,4 @@
-import { CellType, ColumnsType } from 'src/types';
+import { CellType, ColumnsType } from '../types';
 
 export const generateTableData = <TData = Record<string, unknown>>(
   data: TData[],

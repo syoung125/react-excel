@@ -21,8 +21,7 @@
     "prepublish:npm": "npm run format && npm run lint && npm run test && npm run build",
     "publish:npm": "npm publish --access public",
     "build:storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006",
-    "deploy": "npm run build:storybook && git add -f storybook-static/ && git commit -m \"Deploy to GitHub Pages\" && git subtree push --prefix storybook-static origin gh-pages"
+    "storybook": "start-storybook -p 6006"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

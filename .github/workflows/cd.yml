@@ -1,22 +1,19 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: CI
+name: CD
 
 on:
   push:
-    paths-ignore:
-      - '**.md'
-      - .gitignore
-  pull_request:
-    types: [opened, reopened]
+    branches:
+      - master
     paths-ignore:
       - '**.md'
       - .gitignore
 
 jobs:
-  build:
-    name: CI
+  deploy:
+    name: CD
     runs-on: ubuntu-latest
 
     strategy:
@@ -46,25 +43,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
 
-      - name: Install yarn
-        run: npm install -g yarn
-
       - name: Install project dependencies
         if: |
           steps.npm-cache.outputs.cache-hit != 'true' ||
           steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn
+        run: npm install
 
-      - name: Format check
-        run: yarn format
+      - name: Build storybook
+        run: npm run build:storybook
 
-      - name: Lint check
-        run: yarn lint
-
-      - name: Run the tests
-        run: yarn test
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Deploy storybook to gh-pages
+        working-directory: ./storybook-static
+        env:
+          REMOTE_REPO: https://${{ secrets.GH_PAT }}@github.com/DEV-MUGLES/react-excel.git
+          REMOTE_BRANCH: gh-pages
+        run: |
+          git init
+          git config user.name "syoung125"
+          git config user.email "laura120555@gmail.com"
+          git add .
+          git commit -m 'Deploy to GitHub Pages' 
+          git push --force ${{ env.REMOTE_REPO }} master:${{ env.REMOTE_BRANCH }} 
+          echo "Content of $BUILD_DIR has been deployed to GitHub Pages."
