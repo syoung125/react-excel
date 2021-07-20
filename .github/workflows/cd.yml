@@ -58,6 +58,8 @@ jobs:
         run: |
           echo "::set-output name=dir::$(npm config get cache)"
           git init
+          git config user.name "syoung125"
+          git config user.email "laura120555@gmail.com"
           git add .
           git commit -m 'Deploy to GitHub Pages' 
           git push --force ${{ env.REMOTE_REPO }} master:${{ env.REMOTE_BRANCH }} 
