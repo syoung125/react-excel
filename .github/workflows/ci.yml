@@ -8,12 +8,10 @@ on:
     paths-ignore:
       - '**.md'
       - .gitignore
-      - .github/**
   pull_request:
     paths-ignore:
       - '**.md'
       - .gitignore
-      - .github/**
 
 jobs:
   build:
