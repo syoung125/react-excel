@@ -1,26 +1,14 @@
 import XLSX, { WorkSheet, WorkBook } from 'xlsx';
 import dayjs from 'dayjs';
 
-import { CellType, FileExtensionType, SheetOptions } from './types';
+import { CellType, FileExtensionType } from './types';
 
 export default class Sheet {
-  readonly name: string;
-  readonly extension: FileExtensionType;
-  readonly data: CellType[][];
-  private options: SheetOptions;
-
-  constructor(
-    name: string,
-    extension: FileExtensionType,
-    data: CellType[][],
-    options?: SheetOptions
-  ) {
+  constructor(readonly name: string, readonly data: CellType[][]) {
     this.validateName(name);
 
     this.name = name;
-    this.extension = extension;
-    this.data = data;
-    this.options = options || {};
+    this.data = this.preprocessData(data);
   }
 
   private validateName(name: string): boolean {
@@ -51,7 +39,7 @@ export default class Sheet {
         }
         if (Object.prototype.toString.call(cell) === '[object Date]') {
           const date = cell as Date;
-          return dayjs(date).format(this.options?.dateFormat || 'YYYY-MM-DD');
+          return dayjs(date).format('YYYY-MM-DD'); // @ TODO : remove dayjs dependency
         }
         if (typeof cell === 'object') {
           return JSON.stringify(cell);
@@ -63,26 +51,23 @@ export default class Sheet {
     return data;
   }
 
-  setOptions(options: SheetOptions): void {
-    this.options = options;
+  private convertToWorkSheet(data: CellType[][]): WorkSheet {
+    return XLSX.utils.aoa_to_sheet(data);
   }
 
-  convertToWorkSheet(): WorkSheet {
-    return XLSX.utils.aoa_to_sheet(this.preprocessData(this.data));
+  private createWorkBook(): WorkBook {
+    const workBook = XLSX.utils.book_new();
+    const workSheet = this.convertToWorkSheet(this.data);
+    XLSX.utils.book_append_sheet(workBook, workSheet, this.name);
+    return workBook;
   }
 
-  createWorkBook(): WorkBook {
-    const workbook = XLSX.utils.book_new();
-    const worksheet = this.convertToWorkSheet();
-    XLSX.utils.book_append_sheet(workbook, worksheet, this.name);
-    return workbook;
-  }
-
-  download(extension?: FileExtensionType): void {
-    const fileFullName = this.joinNameAndExtension(
-      this.name,
-      extension || this.extension
-    );
+  /**
+   * Download xlsx or csv file
+   * @param extension file extension, default value is xlsx
+   */
+  download(extension: FileExtensionType = 'xlsx'): void {
+    const fileFullName = this.joinNameAndExtension(this.name, extension);
     XLSX.writeFile(this.createWorkBook(), fileFullName);
   }
 }
