@@ -21,7 +21,6 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-        hash-files: hashFiles('package-lock.json')
 
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +41,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ matrix.hash-files }}
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
 
