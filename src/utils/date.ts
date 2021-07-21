@@ -6,7 +6,7 @@ const addZeroToNumber = (number: number): string => {
   return number < 10 ? `0${number}` : `${number}`;
 };
 
-export const formateDate = (date: Date) => {
+export const formatDate = (date: Date) => {
   return `${date.getFullYear()}-${addZeroToNumber(
     date.getMonth() + 1
   )}-${addZeroToNumber(date.getDate())}`;

@@ -1,7 +1,7 @@
 import XLSX, { WorkSheet, WorkBook } from 'xlsx';
 
 import { CellType, FileExtensionType } from './types';
-import { isDate, formateDate } from './utils/date';
+import { isDate, formatDate } from './utils/date';
 
 export default class Sheet {
   constructor(readonly name: string, readonly data: CellType[][]) {
@@ -9,36 +9,42 @@ export default class Sheet {
     this.validateData(data);
 
     this.name = name;
-    this.data = this.preprocessData(data);
+    this.data = this.formatData(data);
   }
 
   /**
-   * check name validation
+   * Check name validation
    * It throws error when name is null or empty
+   * @param name
    */
-  private validateName(name: string): boolean {
+  private validateName(name: string) {
     if (name === null || name.length === 0) {
       throw Error('Invalid file name provided');
     }
-    return true;
+    return;
   }
 
   /**
-   * check data validation
+   * Check data validation
    * It throws error when data is empty or has different row length
+   * @param data
    */
-  private validateData(data: CellType[][]): boolean {
+  private validateData(data: CellType[][]) {
     if (data.length === 0 || data[0].length === 0) {
       throw Error('Invalid data provided');
     }
     if (data.find((row) => row.length !== data[0].length)) {
       throw Error('All rows should be a same length');
     }
-    return true;
+    return;
   }
 
-  private preprocessData(_data: CellType[][]): string[][] {
-    const data: string[][] = _data.map((row) =>
+  /**
+   * Return formatted data
+   * @param data
+   */
+  private formatData(data: CellType[][]): string[][] {
+    return data.map((row) =>
       row.map((cell) => {
         if (typeof cell === 'string') {
           return cell;
@@ -50,7 +56,7 @@ export default class Sheet {
           return cell.toString().toUpperCase();
         }
         if (isDate(cell)) {
-          return formateDate(cell);
+          return formatDate(cell);
         }
         if (typeof cell === 'object') {
           return JSON.stringify(cell);
@@ -59,17 +65,12 @@ export default class Sheet {
         return '';
       })
     );
-    return data;
   }
 
   /**
-   * Format file full name by joinning name and extension
+   * Create workSheet from provided data
    */
-  private formatFullName(name: string, extension: FileExtensionType): string {
-    return `${name}.${extension}`;
-  }
-
-  private convertToWorkSheet(data: CellType[][]): WorkSheet {
+  private createWorkSheet(data: CellType[][]): WorkSheet {
     return XLSX.utils.aoa_to_sheet(data);
   }
 
@@ -79,9 +80,16 @@ export default class Sheet {
    */
   private createWorkBook(data: CellType[][]): WorkBook {
     const workBook = XLSX.utils.book_new();
-    const workSheet = this.convertToWorkSheet(data);
+    const workSheet = this.createWorkSheet(data);
     XLSX.utils.book_append_sheet(workBook, workSheet);
     return workBook;
+  }
+
+  /**
+   * Format file full name by joinning name and extension
+   */
+  private formatFullName(name: string, extension: FileExtensionType): string {
+    return `${name}.${extension}`;
   }
 
   /**
