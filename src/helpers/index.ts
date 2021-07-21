@@ -1,1 +1,1 @@
-export * from './generate-table-data';
+export * from './format-table-aoa';

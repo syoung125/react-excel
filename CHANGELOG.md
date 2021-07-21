@@ -14,3 +14,11 @@
 
 - change package name (react-excel-download -> react-excel)
 - update README.md
+
+## 0.0.3 (2021-07-21)
+
+- change generateTableData helper name to formatTableAOA
+- remove sheetOptions and remove dayjs dependency
+- rename ColumnsType.key -> ColumnsType.propName
+- not assign file name to work sheet name (default sheet name is 'Sheet1')
+- make createWorkBook, convertToWorkSheet to private method of Sheet class

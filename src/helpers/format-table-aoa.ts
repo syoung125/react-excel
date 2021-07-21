@@ -1,14 +1,14 @@
 import { CellType, ColumnsType } from '../types';
 
-export const generateTableData = <TData = Record<string, unknown>>(
+export const formatTableAOA = <TData = Record<string, unknown>>(
   data: TData[],
   columns: ColumnsType<TData>
 ): CellType[][] => {
   const columnsRow: string[] = columns.map(({ label }) => label);
   const rows: CellType[][] = data.map(
     (record) =>
-      columns.map(({ key, mapValue }) =>
-        mapValue ? mapValue(record) : record[key as keyof TData]
+      columns.map(({ propName, mapValue }) =>
+        mapValue ? mapValue(record) : record[propName as keyof TData]
       ) as CellType[]
   );
 

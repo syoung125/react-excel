@@ -25,7 +25,6 @@ export const Default = DefaultTemplate.bind({});
 Default.args = {
   fileName: 'new_excel_file',
   data,
-  sheetOptions: { dateFormat: 'YYYY/MM/DD' },
 };
 
 export const withStyle = () => {

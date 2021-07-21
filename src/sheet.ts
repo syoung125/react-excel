@@ -1,44 +1,50 @@
 import XLSX, { WorkSheet, WorkBook } from 'xlsx';
-import dayjs from 'dayjs';
 
-import { CellType, FileExtensionType, SheetOptions } from './types';
+import { CellType, FileExtensionType } from './types';
+import { isDate, formatDate } from './utils/date';
 
 export default class Sheet {
-  readonly name: string;
-  readonly extension: FileExtensionType;
-  readonly data: CellType[][];
-  private options: SheetOptions;
-
-  constructor(
-    name: string,
-    extension: FileExtensionType,
-    data: CellType[][],
-    options?: SheetOptions
-  ) {
+  constructor(readonly name: string, readonly data: CellType[][]) {
     this.validateName(name);
+    this.validateData(data);
 
     this.name = name;
-    this.extension = extension;
-    this.data = data;
-    this.options = options || {};
+    this.data = this.formatData(data);
   }
 
-  private validateName(name: string): boolean {
+  /**
+   * Check name validation
+   * It throws error when name is null or empty
+   * @param name
+   */
+  private validateName(name: string) {
     if (name === null || name.length === 0) {
       throw Error('Invalid file name provided');
     }
-    return true;
+    return;
   }
 
-  private joinNameAndExtension(
-    name: string,
-    extension: FileExtensionType
-  ): string {
-    return `${name}.${extension}`;
+  /**
+   * Check data validation
+   * It throws error when data is empty or has different row length
+   * @param data
+   */
+  private validateData(data: CellType[][]) {
+    if (data.length === 0 || data[0].length === 0) {
+      throw Error('Invalid data provided');
+    }
+    if (data.find((row) => row.length !== data[0].length)) {
+      throw Error('All rows should be a same length');
+    }
+    return;
   }
 
-  private preprocessData(_data: CellType[][]): string[][] {
-    const data: string[][] = _data.map((row) =>
+  /**
+   * Return formatted data
+   * @param data
+   */
+  private formatData(data: CellType[][]): string[][] {
+    return data.map((row) =>
       row.map((cell) => {
         if (typeof cell === 'string') {
           return cell;
@@ -49,9 +55,8 @@ export default class Sheet {
         if (typeof cell === 'boolean') {
           return cell.toString().toUpperCase();
         }
-        if (Object.prototype.toString.call(cell) === '[object Date]') {
-          const date = cell as Date;
-          return dayjs(date).format(this.options?.dateFormat || 'YYYY-MM-DD');
+        if (isDate(cell)) {
+          return formatDate(cell);
         }
         if (typeof cell === 'object') {
           return JSON.stringify(cell);
@@ -60,29 +65,40 @@ export default class Sheet {
         return '';
       })
     );
-    return data;
   }
 
-  setOptions(options: SheetOptions): void {
-    this.options = options;
+  /**
+   * Create workSheet from provided data
+   */
+  private createWorkSheet(data: CellType[][]): WorkSheet {
+    return XLSX.utils.aoa_to_sheet(data);
   }
 
-  convertToWorkSheet(): WorkSheet {
-    return XLSX.utils.aoa_to_sheet(this.preprocessData(this.data));
+  /**
+   * Create workBook with only one sheet.
+   * Appended sheet will be named 'Sheet1' for default.
+   */
+  private createWorkBook(data: CellType[][]): WorkBook {
+    const workBook = XLSX.utils.book_new();
+    const workSheet = this.createWorkSheet(data);
+    XLSX.utils.book_append_sheet(workBook, workSheet);
+    return workBook;
   }
 
-  createWorkBook(): WorkBook {
-    const workbook = XLSX.utils.book_new();
-    const worksheet = this.convertToWorkSheet();
-    XLSX.utils.book_append_sheet(workbook, worksheet, this.name);
-    return workbook;
+  /**
+   * Format file full name by joinning name and extension
+   */
+  private formatFullName(name: string, extension: FileExtensionType): string {
+    return `${name}.${extension}`;
   }
 
-  download(extension?: FileExtensionType): void {
-    const fileFullName = this.joinNameAndExtension(
-      this.name,
-      extension || this.extension
-    );
-    XLSX.writeFile(this.createWorkBook(), fileFullName);
+  /**
+   * Download xlsx or csv file
+   * @param extension file extension, default is 'xlsx'
+   */
+  download(extension: FileExtensionType = 'xlsx'): void {
+    const workBook = this.createWorkBook(this.data);
+    const fileFullName = this.formatFullName(this.name, extension);
+    XLSX.writeFile(workBook, fileFullName);
   }
 }
