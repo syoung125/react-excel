@@ -1,27 +1,27 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import faker from 'faker';
 
 import { ExcelDownloadButton } from '../src';
 
-const MOCK_DATA = [
-  ['name', 'height', 'weight'],
-  ['Joe', 188, 87],
-  ['Marry', 158, 54],
-  ['Bob', 177, 78],
-];
+import { mockAoaData } from './mocks';
+
 describe('ExcelDownloadButton', () => {
+  const fileName = faker.name.title();
+  const fakeData = mockAoaData();
+
   it('renders excel download button component', () => {
-    render(<ExcelDownloadButton fileName="new_file" data={MOCK_DATA} />);
+    render(<ExcelDownloadButton fileName={fileName} data={fakeData} />);
     expect(screen.getByText('Excel Download')).toBeInTheDocument();
   });
 
   it('renders csv download button component', () => {
     render(
       <ExcelDownloadButton
-        fileName="new_file"
+        fileName={fileName}
         fileExtension="csv"
-        data={MOCK_DATA}
+        data={fakeData}
       />
     );
     expect(screen.getByText('CSV Download')).toBeInTheDocument();
@@ -30,8 +30,8 @@ describe('ExcelDownloadButton', () => {
   it('renders with style props', () => {
     render(
       <ExcelDownloadButton
-        fileName="new_file"
-        data={MOCK_DATA}
+        fileName={fileName}
+        data={fakeData}
         style={{ background: 'green', color: 'white' }}
       />
     );
@@ -48,8 +48,8 @@ describe('ExcelDownloadButton', () => {
     );
     render(
       <ExcelDownloadButton
-        fileName="new_file"
-        data={MOCK_DATA}
+        fileName={fileName}
+        data={fakeData}
         element={CustomElement}
         style={{ background: 'green', color: 'white' }}
       />

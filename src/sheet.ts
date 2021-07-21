@@ -18,13 +18,6 @@ export default class Sheet {
     return true;
   }
 
-  private joinNameAndExtension(
-    name: string,
-    extension: FileExtensionType
-  ): string {
-    return `${name}.${extension}`;
-  }
-
   private preprocessData(_data: CellType[][]): string[][] {
     const data: string[][] = _data.map((row) =>
       row.map((cell) => {
@@ -51,14 +44,21 @@ export default class Sheet {
     return data;
   }
 
+  private joinNameAndExtension(
+    name: string,
+    extension: FileExtensionType
+  ): string {
+    return `${name}.${extension}`;
+  }
+
   private convertToWorkSheet(data: CellType[][]): WorkSheet {
     return XLSX.utils.aoa_to_sheet(data);
   }
 
-  private createWorkBook(): WorkBook {
+  private createWorkBook(name: string, data: CellType[][]): WorkBook {
     const workBook = XLSX.utils.book_new();
-    const workSheet = this.convertToWorkSheet(this.data);
-    XLSX.utils.book_append_sheet(workBook, workSheet, this.name);
+    const workSheet = this.convertToWorkSheet(data);
+    XLSX.utils.book_append_sheet(workBook, workSheet, name);
     return workBook;
   }
 
@@ -68,6 +68,6 @@ export default class Sheet {
    */
   download(extension: FileExtensionType = 'xlsx'): void {
     const fileFullName = this.joinNameAndExtension(this.name, extension);
-    XLSX.writeFile(this.createWorkBook(), fileFullName);
+    XLSX.writeFile(this.createWorkBook(this.name, this.data), fileFullName);
   }
 }
