@@ -54,19 +54,24 @@ export default class Sheet {
     return XLSX.utils.aoa_to_sheet(data);
   }
 
-  private createWorkBook(name: string, data: CellType[][]): WorkBook {
+  /**
+   * Create workBook with only one sheet.
+   * Appended sheet will be named 'Sheet1' for default.
+   */
+  private createWorkBook(data: CellType[][]): WorkBook {
     const workBook = XLSX.utils.book_new();
     const workSheet = this.convertToWorkSheet(data);
-    XLSX.utils.book_append_sheet(workBook, workSheet, name);
+    XLSX.utils.book_append_sheet(workBook, workSheet);
     return workBook;
   }
 
   /**
    * Download xlsx or csv file
-   * @param extension file extension, default value is xlsx
+   * @param extension file extension, default is 'xlsx'
    */
   download(extension: FileExtensionType = 'xlsx'): void {
+    const workBook = this.createWorkBook(this.data);
     const fileFullName = this.joinNameAndExtension(this.name, extension);
-    XLSX.writeFile(this.createWorkBook(this.name, this.data), fileFullName);
+    XLSX.writeFile(workBook, fileFullName);
   }
 }

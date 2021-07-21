@@ -25,9 +25,9 @@ describe('Sheet class', () => {
   });
 
   it('creates workbook', () => {
-    const workBook = sheetPrototype.createWorkBook(sheet.name, sheet.data);
+    const workBook = sheetPrototype.createWorkBook(sheet.data);
     const firstSheetName = workBook.SheetNames[0];
-    expect(sheetName).toEqual(firstSheetName);
+    expect(firstSheetName).toEqual('Sheet1');
   });
 
   it('joins name and extension', () => {
