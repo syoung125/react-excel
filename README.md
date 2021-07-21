@@ -121,13 +121,13 @@ constructor(name: string, extension: FileExtensionType, data: CellType[][], opti
 
 ## 3. Helper
 
-## generateTableData (helper)
+## formatTableAOA (helper)
 
-You will probably want to export table data with column and row.
-So,generateTableData helper is provided for generating aoa table data with column and row.
+You will probably want to export table data which is composed of columns and rows.
+So,formatTableAOA helper is provided to get formatted table array of arrays.
 
 ```ts
-const generateTableData = <TData = Record<string, unknown>>(
+const formatTableAOA = <TData = Record<string, unknown>>(
   data: TData[],
   columns: ColumnsType<TData>
 ): CellType[][];
@@ -171,7 +171,7 @@ const columns: ColumnsType<MyData> = [
   },
 ];
 
-const aoaData = generateTableData(data, columns);
+const aoaData = formatTableAOA(data, columns);
 /**
  *  aoaData output
  * [

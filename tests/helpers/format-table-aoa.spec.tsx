@@ -1,4 +1,4 @@
-import { generateTableData, ColumnsType } from '../../src';
+import { formatTableAOA, ColumnsType } from '../../src';
 
 type TData = {
   id: number;
@@ -50,9 +50,9 @@ const DATA_AFTER = [
   [5678, 'Jane Doe', 'I live in Korea, Seoul.', 'male'],
 ];
 
-describe('generateTableData', () => {
-  it('generates proper table data', () => {
-    const result = generateTableData(DATA_BEFORE, COLUMNS);
+describe('formatTableAOA', () => {
+  it('returns proper table data format', () => {
+    const result = formatTableAOA(DATA_BEFORE, COLUMNS);
     expect(result).toEqual(DATA_AFTER);
   });
 });

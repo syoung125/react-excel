@@ -14,3 +14,7 @@
 
 - change package name (react-excel-download -> react-excel)
 - update README.md
+
+## 0.0.3 (2021-07-21)
+
+- change generateTableData helper name to formatTableAOA

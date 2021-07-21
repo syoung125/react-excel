@@ -1,6 +1,6 @@
 import { CellType, ColumnsType } from '../types';
 
-export const generateTableData = <TData = Record<string, unknown>>(
+export const formatTableAOA = <TData = Record<string, unknown>>(
   data: TData[],
   columns: ColumnsType<TData>
 ): CellType[][] => {
