@@ -1,4 +1,5 @@
 import faker from 'faker';
+import XLSX from 'xlsx';
 
 import { Sheet } from '../src';
 import { mockAoaData, generateProprocessDataTestCases } from './mocks';
@@ -33,5 +34,11 @@ describe('Sheet class', () => {
   it('joins name and extension', () => {
     const result = sheetPrototype.joinNameAndExtension(sheetName, 'xlsx');
     expect(result).toEqual(`${sheetName}.xlsx`);
+  });
+
+  it('calls writeFile when download sheet', () => {
+    const spy = jest.spyOn(XLSX, 'writeFile').mockImplementation(jest.fn());
+    sheet.download();
+    expect(spy).toHaveBeenCalled();
   });
 });
