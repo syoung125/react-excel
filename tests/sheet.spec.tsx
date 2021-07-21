@@ -2,7 +2,7 @@ import faker from 'faker';
 import XLSX from 'xlsx';
 
 import { Sheet } from '../src';
-import { mockAoaData, generateProprocessDataTestCases } from './mocks';
+import { mockAoaData, getMockedFormatDataTestCases } from './mocks';
 
 describe('Sheet class', () => {
   const fakeName = faker.name.title();
@@ -40,11 +40,11 @@ describe('Sheet class', () => {
     });
   });
 
-  describe('preprocessData', () => {
-    const cases = generateProprocessDataTestCases();
+  describe('formatData', () => {
+    const cases = getMockedFormatDataTestCases();
     test.each(cases)('$name', ({ before, after }) => {
-      const preprocessedData = sheetPrototype.preprocessData(before);
-      expect(preprocessedData).toEqual(after);
+      const formattedData = sheetPrototype.formatData(before);
+      expect(formattedData).toEqual(after);
     });
   });
 

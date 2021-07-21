@@ -27,7 +27,7 @@ export const mockAoaData = () => {
   return data;
 };
 
-export const generateProprocessDataTestCases = () => {
+export const getMockedFormatDataTestCases = () => {
   const fakeString = faker.datatype.string();
   const fakeNumber = faker.datatype.number();
   const fakeBoolean = faker.datatype.boolean();
@@ -37,38 +37,38 @@ export const generateProprocessDataTestCases = () => {
   return [
     {
       name: 'string',
-      before: [['string', fakeString]],
-      after: [['string', fakeString]],
+      before: [[fakeString]],
+      after: [[fakeString]],
     },
     {
       name: 'number',
-      before: [['number', fakeNumber]],
-      after: [['number', fakeNumber.toString()]],
+      before: [[fakeNumber]],
+      after: [[fakeNumber.toString()]],
     },
     {
       name: 'boolean',
-      before: [['boolean', fakeBoolean]],
-      after: [['boolean', fakeBoolean.toString().toUpperCase()]],
+      before: [[fakeBoolean]],
+      after: [[fakeBoolean.toString().toUpperCase()]],
     },
     {
       name: 'object',
-      before: [['object', fakeJson]],
-      after: [['object', JSON.stringify(fakeJson)]],
+      before: [[fakeJson]],
+      after: [[JSON.stringify(fakeJson)]],
     },
     {
       name: 'date',
-      before: [['date', fakeDate]],
-      after: [['date', dayjs(fakeDate).format('YYYY-MM-DD')]],
+      before: [[fakeDate]],
+      after: [[dayjs(fakeDate).format('YYYY-MM-DD')]],
     },
     {
       name: 'undefined',
-      before: [['undefined', undefined]],
-      after: [['undefined', '']],
+      before: [[undefined]],
+      after: [['']],
     },
     {
       name: 'null',
-      before: [['null', null]],
-      after: [['null', 'null']],
+      before: [[null]],
+      after: [['null']],
     },
   ];
 };
