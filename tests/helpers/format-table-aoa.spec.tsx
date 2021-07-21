@@ -26,21 +26,21 @@ const DATA_BEFORE: TData[] = [
 ];
 
 const COLUMNS: ColumnsType<TData> = [
-  { label: 'P_ID', key: 'id' },
+  { label: 'P_ID', propName: 'id' },
   {
     label: 'NAME',
-    key: 'name',
+    propName: 'name',
     mapValue: (record) => `${record.name.fistName} ${record.name.lastName}`,
   },
   {
     label: 'ADDRESS',
-    key: 'address',
+    propName: 'address',
     mapValue: (record) =>
       `I live in ${record.address.country}, ${record.address.city}.`,
   },
   {
     label: 'GENDER',
-    key: 'gender',
+    propName: 'gender',
   },
 ];
 

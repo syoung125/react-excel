@@ -11,6 +11,6 @@ export type ExcelDownloadButtonProps = {
 
 export type ColumnsType<TData = Record<string, unknown>> = {
   label: string;
-  key: string;
+  propName: string;
   mapValue?: (record: TData) => CellType;
 }[];

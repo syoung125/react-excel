@@ -7,8 +7,8 @@ export const formatTableAOA = <TData = Record<string, unknown>>(
   const columnsRow: string[] = columns.map(({ label }) => label);
   const rows: CellType[][] = data.map(
     (record) =>
-      columns.map(({ key, mapValue }) =>
-        mapValue ? mapValue(record) : record[key as keyof TData]
+      columns.map(({ propName, mapValue }) =>
+        mapValue ? mapValue(record) : record[propName as keyof TData]
       ) as CellType[]
   );
 
