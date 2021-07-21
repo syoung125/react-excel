@@ -18,3 +18,6 @@
 ## 0.0.3 (2021-07-21)
 
 - change generateTableData helper name to formatTableAOA
+- remove sheetOptions and remove dayjs dependency
+- rename ColumnsType.key -> ColumnsType.propName
+- not assign file name to work sheet name (default sheet name is 'Sheet1')
