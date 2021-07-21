@@ -21,3 +21,4 @@
 - remove sheetOptions and remove dayjs dependency
 - rename ColumnsType.key -> ColumnsType.propName
 - not assign file name to work sheet name (default sheet name is 'Sheet1')
+- make createWorkBook, convertToWorkSheet to private method of Sheet class

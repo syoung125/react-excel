@@ -34,13 +34,11 @@ const data = [
     <ExcelDownloadButton
         fileName="new_excel_file"
         data={data}
-        fileExtension="xlsx"
     />
     <ExcelDownloadButton
         fileName="new_csv_file"
         data={data}
         fileExtension="csv"
-        sheetOption={{ dateFormat: 'YYYY/MM/DD' }}
     />
 </>
 ```
@@ -54,14 +52,12 @@ const data = [
 | data          | CellType[][]        |         | true     | Excel data of single sheet (aoa: Array of array)                        |
 | style         | React.CSSProperties |         | false    | Download Button CSS                                                     |
 | element       | React.ReactElement  | null    | false    | Custom button element (When it's null, default button will be rendered) |
-| sheetOption   | SheetOptions        |         | false    | set sheet options (ex) dateFormat )                                     |
 
 ### Types
 
 ```ts
 export type FileExtensionType = 'xlsx' | 'csv';
 export type CellType = string | number | boolean | Date | object;
-export type SheetOptions = { dateFormat?: string };
 
 export type ExcelDownloadButtonProps = {
   fileName: string;
@@ -69,7 +65,6 @@ export type ExcelDownloadButtonProps = {
   data: CellType[][];
   style?: React.CSSProperties;
   element?: React.ReactElement;
-  sheetOptions?: SheetOptions;
 };
 ```
 
@@ -84,40 +79,30 @@ const data = [
   ['hi', 'hello', 'bye'],
 ];
 
-const sheet = new Sheet('new_file', 'xlsx', data);
-sheet.download();
+const sheet = new Sheet('new_file', data);
+sheet.download(); // download sheet as .xlsx by default
 
-// when you want to download sheet to different type
-sheet.download('csv');
-
-// when you want to set date format to date data
-sheet.setOptions({ dateFormat: 'YY/MM/DD' });
-sheet.download();
+sheet.download('csv'); // download sheet as .csv by default
 ```
 
 ### constructor
 
 ```
-constructor(name: string, extension: FileExtensionType, data: CellType[][], options?: SheetOptions)
+constructor(name: string, data: CellType[][])
 ```
 
 ### properties
 
-| Props     | Type              | Default | Required |
-| --------- | ----------------- | ------- | -------- |
-| name      | string            |         | true     |
-| extension | FileExtensionType |         | true     |
-| data      | CellType[][]      |         | true     |
-| options   | SheetOptions      | {}      | false    |
+| Props | Type         | Default | Required |
+| ----- | ------------ | ------- | -------- |
+| name  | string       |         | true     |
+| data  | CellType[][] |         | true     |
 
 ### methods
 
-| Method                                       | Description                                   |
-| -------------------------------------------- | --------------------------------------------- |
-| download(extension?: FileExtensionType):void | download xlsx or csv sheet                    |
-| createWorkBook(): WorkBook                   | create and return workbook                    |
-| convertToWorkSheet(): WorkSheet              | convert aoa to worksheet and return worksheet |
-| setOptions(options: SheetOptions):void       | Set sheet options                             |
+| Method                                       | Description                |
+| -------------------------------------------- | -------------------------- |
+| download(extension?: FileExtensionType):void | download xlsx or csv sheet |
 
 ## 3. Helper
 
@@ -156,16 +141,16 @@ const data: MyData[] = [
 const columns: ColumnsType<MyData> = [
   {
     label: 'ID',
-    key: 'id',
+    propName: 'id',
   },
   {
     label: 'NAME',
-    key: 'name',
+    propName: 'name',
     mapValue: (record) => `${record.name.fistName} ${record.name.lastName}`,
   },
   {
     label: 'ADDRESS',
-    key: 'address',
+    propName: 'address',
     mapValue: (record) =>
       `I live in ${record.address.country}, ${record.address.city}.`,
   },
@@ -180,6 +165,16 @@ const aoaData = formatTableAOA(data, columns);
  *    [5678,'Jane Doe','I live in Korea, Seoul.'],
  * ]
  * /
+```
+
+### Types
+
+```ts
+export type ColumnsType<TData = Record<string, unknown>> = {
+  label: string;
+  propName: string;
+  mapValue?: (record: TData) => CellType;
+}[];
 ```
 
 ## 4. Links
