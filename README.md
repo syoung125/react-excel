@@ -68,6 +68,11 @@ export type ExcelDownloadButtonProps = {
 };
 ```
 
+### caveat
+
+- It will throw error when sheet data is empty or sheet data has different row length.
+  (Every row must have the same length)
+
 ## 2.2 Sheet class
 
 You can generate excel sheet and download it.
