@@ -1,7 +1,7 @@
 import XLSX, { WorkSheet, WorkBook } from 'xlsx';
-import dayjs from 'dayjs';
 
 import { CellType, FileExtensionType } from './types';
+import { isDate, formateDate } from './utils/date';
 
 export default class Sheet {
   constructor(readonly name: string, readonly data: CellType[][]) {
@@ -30,9 +30,8 @@ export default class Sheet {
         if (typeof cell === 'boolean') {
           return cell.toString().toUpperCase();
         }
-        if (Object.prototype.toString.call(cell) === '[object Date]') {
-          const date = cell as Date;
-          return dayjs(date).format('YYYY-MM-DD'); // @ TODO : remove dayjs dependency
+        if (isDate(cell)) {
+          return formateDate(cell);
         }
         if (typeof cell === 'object') {
           return JSON.stringify(cell);
