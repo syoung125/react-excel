@@ -6,14 +6,33 @@ import { isDate, formateDate } from './utils/date';
 export default class Sheet {
   constructor(readonly name: string, readonly data: CellType[][]) {
     this.validateName(name);
+    this.validateData(data);
 
     this.name = name;
     this.data = this.preprocessData(data);
   }
 
+  /**
+   * check name validation
+   * It throws error when name is null or empty
+   */
   private validateName(name: string): boolean {
     if (name === null || name.length === 0) {
       throw Error('Invalid file name provided');
+    }
+    return true;
+  }
+
+  /**
+   * check data validation
+   * It throws error when data is empty or has different row length
+   */
+  private validateData(data: CellType[][]): boolean {
+    if (data.length === 0 || data[0].length === 0) {
+      throw Error('Invalid data provided');
+    }
+    if (data.find((row) => row.length !== data[0].length)) {
+      throw Error('All rows should be a same length');
     }
     return true;
   }
@@ -43,10 +62,10 @@ export default class Sheet {
     return data;
   }
 
-  private joinNameAndExtension(
-    name: string,
-    extension: FileExtensionType
-  ): string {
+  /**
+   * Format file full name by joinning name and extension
+   */
+  private formatFullName(name: string, extension: FileExtensionType): string {
     return `${name}.${extension}`;
   }
 
@@ -71,7 +90,7 @@ export default class Sheet {
    */
   download(extension: FileExtensionType = 'xlsx'): void {
     const workBook = this.createWorkBook(this.data);
-    const fileFullName = this.joinNameAndExtension(this.name, extension);
+    const fileFullName = this.formatFullName(this.name, extension);
     XLSX.writeFile(workBook, fileFullName);
   }
 }

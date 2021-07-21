@@ -5,16 +5,39 @@ import { Sheet } from '../src';
 import { mockAoaData, generateProprocessDataTestCases } from './mocks';
 
 describe('Sheet class', () => {
+  const fakeName = faker.name.title();
   const fakeData = mockAoaData();
-  const sheetName = faker.name.title();
-  const sheet = new Sheet(sheetName, fakeData);
+  const sheet = new Sheet(fakeName, fakeData);
   const sheetPrototype = Object.getPrototypeOf(sheet);
 
   it('throws error when it gets invalid fileName', () => {
+    const invalidName = '';
     const errorMessage = 'Invalid file name provided';
     expect(() => {
-      new Sheet('', fakeData);
+      new Sheet(invalidName, fakeData);
     }).toThrow(errorMessage);
+  });
+
+  describe('validateData', () => {
+    it('should be throw error when it gets invalid data', () => {
+      const invalidData = [[]];
+      const errorMessage = 'Invalid data provided';
+      expect(() => {
+        new Sheet(fakeName, invalidData);
+      }).toThrow(errorMessage);
+    });
+
+    it('should be throw error when all rows are not a same length.', () => {
+      const invalidData = [
+        [1, 2, 3],
+        [4, 5],
+        [6, 7, 8, 9, 10],
+      ];
+      const errorMessage = 'All rows should be a same length';
+      expect(() => {
+        new Sheet(fakeName, invalidData);
+      }).toThrow(errorMessage);
+    });
   });
 
   describe('preprocessData', () => {
@@ -31,9 +54,9 @@ describe('Sheet class', () => {
     expect(firstSheetName).toEqual('Sheet1');
   });
 
-  it('joins name and extension', () => {
-    const result = sheetPrototype.joinNameAndExtension(sheetName, 'xlsx');
-    expect(result).toEqual(`${sheetName}.xlsx`);
+  it('formats full name', () => {
+    const result = sheetPrototype.formatFullName(fakeName, 'xlsx');
+    expect(result).toEqual(`${fakeName}.xlsx`);
   });
 
   it('calls writeFile when download sheet', () => {
