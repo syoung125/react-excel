@@ -38,31 +38,35 @@ const data = [
     <ExcelDownloadButton
         fileName="new_csv_file"
         data={data}
-        fileExtension="csv"
+        options={{ extension: 'csv' }}
     />
 </>
 ```
 
 ### ExcelDownloadButton Props
 
-| Props         | Type                | Default | Required | Description                                                             |
-| ------------- | ------------------- | ------- | -------- | ----------------------------------------------------------------------- |
-| fileName      | string              |         | true     | Excel file name to be downloaded (without extension)                    |
-| fileExtension | FileExtensionType   | 'xlsx'  | true     | Excel file extension ('xlsx' or 'csv')                                  |
-| data          | CellType[][]        |         | true     | Excel data of single sheet (aoa: Array of array)                        |
-| style         | React.CSSProperties |         | false    | Download Button CSS                                                     |
-| element       | React.ReactElement  | null    | false    | Custom button element (When it's null, default button will be rendered) |
+| Props    | Type                 | Default | Required | Description                                                                                                     |
+| -------- | -------------------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| fileName | string               |         | true     | Excel file name to be downloaded (without extension)                                                            |
+| data     | CellType[][]         |         | true     | Excel data of single sheet (aoa: Array of array)                                                                |
+| options  | ExcelFileOptions[][] |         | false    | Options for adding current DateTime at end of the fileName, and for downloading other extension files (ex) csv) |
+| style    | React.CSSProperties  |         | false    | Download Button CSS                                                                                             |
+| element  | React.ReactElement   | null    | false    | Custom button element (When it's null, default button will be rendered)                                         |
 
 ### Types
 
 ```ts
 export type FileExtensionType = 'xlsx' | 'csv';
 export type CellType = string | number | boolean | Date | object;
+export type ExcelFileOptions = {
+  isNameHasDateTime?: boolean;
+  extension?: FileExtensionType;
+};
 
 export type ExcelDownloadButtonProps = {
   fileName: string;
-  fileExtension?: FileExtensionType;
   data: CellType[][];
+  options?: ExcelFileOptions;
   style?: React.CSSProperties;
   element?: React.ReactElement;
 };
@@ -73,9 +77,9 @@ export type ExcelDownloadButtonProps = {
 - It will throw error when sheet data is empty or sheet data has different row length.
   (Every row must have the same length)
 
-## 2.2 Sheet class
+## 2.2 ExcelFile class
 
-You can generate excel sheet and download it.
+You can generate excel file and download it.
 
 ```js
 const data = [
@@ -84,30 +88,31 @@ const data = [
   ['hi', 'hello', 'bye'],
 ];
 
-const sheet = new Sheet('new_file', data);
-sheet.download(); // download sheet as .xlsx by default
+const excelFile = new ExcelFile('new_file', data);
+excelFile.download(); // download file as .xlsx by default
 
-sheet.download('csv'); // download sheet as .csv by default
+excelFile.download('csv'); // download file as .csv by default
 ```
 
 ### constructor
 
 ```
-constructor(name: string, data: CellType[][])
+constructor(name: string, data: CellType[][], options?: ExcelFileOptions)
 ```
 
-### properties
+### fields
 
-| Props | Type         | Default | Required |
-| ----- | ------------ | ------- | -------- |
-| name  | string       |         | true     |
-| data  | CellType[][] |         | true     |
+| Props   | Type             | Default | Required |
+| ------- | ---------------- | ------- | -------- |
+| name    | string           |         | true     |
+| data    | CellType[][]     |         | true     |
+| options | ExcelFileOptions |         | false    |
 
 ### methods
 
-| Method                                       | Description                |
-| -------------------------------------------- | -------------------------- |
-| download(extension?: FileExtensionType):void | download xlsx or csv sheet |
+| Method                                       | Description               |
+| -------------------------------------------- | ------------------------- |
+| download(extension?: FileExtensionType):void | download xlsx or csv file |
 
 ## 3. Helper
 

@@ -31,4 +31,5 @@
 
 ## 0.0.5 (2021-07-22)
 
-- add sheetoptions to add date time end of the file name (94b7e10)
+- change class name Sheet -> ExcelFile (e255f5e)
+- add ExcelFileOptions (94b7e10)

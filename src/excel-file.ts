@@ -34,7 +34,7 @@ export default class ExcelFile {
   }
 
   /**
-   * Return file name with date time
+   * Return fileName with date time at the end of the name
    */
   private addDateTimeToName = (name: String) => {
     const { year, month, day, hours, minutes, seconds } = getDateTimeStrings(
