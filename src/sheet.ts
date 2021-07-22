@@ -46,6 +46,9 @@ export default class Sheet {
   private formatData(data: CellType[][]): string[][] {
     return data.map((row) =>
       row.map((cell) => {
+        if (cell === null) {
+          return '';
+        }
         if (typeof cell === 'string') {
           return cell;
         }

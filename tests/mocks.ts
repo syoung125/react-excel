@@ -68,7 +68,7 @@ export const getMockedFormatDataTestCases = () => {
     {
       name: 'null',
       before: [[null]],
-      after: [['null']],
+      after: [['']],
     },
   ];
 };
