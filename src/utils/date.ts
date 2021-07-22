@@ -7,7 +7,17 @@ const addZeroToNumber = (number: number): string => {
 };
 
 export const formatDate = (date: Date) => {
-  return `${date.getFullYear()}-${addZeroToNumber(
-    date.getMonth() + 1
-  )}-${addZeroToNumber(date.getDate())}`;
+  const { year, month, day } = getDateTimeStrings(date);
+  return `${year}-${month}-${day}`;
+};
+
+export const getDateTimeStrings = (date: Date) => {
+  return {
+    year: date.getFullYear().toString(),
+    month: addZeroToNumber(date.getMonth() + 1),
+    day: addZeroToNumber(date.getDate()),
+    hours: addZeroToNumber(date.getHours()),
+    minutes: addZeroToNumber(date.getMinutes()),
+    seconds: addZeroToNumber(date.getSeconds()),
+  };
 };

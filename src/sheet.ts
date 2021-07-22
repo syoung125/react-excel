@@ -1,14 +1,20 @@
 import XLSX, { WorkSheet, WorkBook } from 'xlsx';
 
-import { CellType, FileExtensionType } from './types';
-import { isDate, formatDate } from './utils/date';
+import { CellType, FileExtensionType, SheetOptions } from './types';
+import { isDate, formatDate, getDateTimeStrings } from './utils';
 
 export default class Sheet {
-  constructor(readonly name: string, readonly data: CellType[][]) {
+  constructor(
+    readonly name: string,
+    readonly data: CellType[][],
+    readonly options?: SheetOptions
+  ) {
     this.validateName(name);
     this.validateData(data);
 
-    this.name = name;
+    this.name = options?.isFileNameHasDateTime
+      ? this.addDateTimeToFileName(name)
+      : name;
     this.data = this.formatData(data);
   }
 
@@ -23,6 +29,18 @@ export default class Sheet {
     }
     return;
   }
+
+  /**
+   * Return file name with date time
+   */
+  private addDateTimeToFileName = (name: String) => {
+    const { year, month, day, hours, minutes, seconds } = getDateTimeStrings(
+      new Date()
+    );
+    const dateString = `${year}-${month}-${day}`;
+    const timeString = `${hours}_${minutes}_${seconds}`;
+    return `${name}_${dateString}T${timeString}`;
+  };
 
   /**
    * Check data validation

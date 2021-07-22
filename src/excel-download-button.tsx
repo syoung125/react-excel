@@ -9,9 +9,10 @@ function ExcelDownloadButton({
   data,
   style,
   element,
+  options,
 }: ExcelDownloadButtonProps) {
   const handleClick = () => {
-    const sheet = new Sheet(fileName, data);
+    const sheet = new Sheet(fileName, data, options);
     sheet.download(fileExtension);
   };
 
