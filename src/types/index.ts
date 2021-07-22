@@ -1,14 +1,16 @@
 export type FileExtensionType = 'xlsx' | 'csv';
 export type CellType = string | number | boolean | Date | object;
-export type SheetOptions = { isFileNameHasDateTime: boolean };
+export type ExcelFileOptions = {
+  isNameHasDateTime?: boolean;
+  extension?: FileExtensionType;
+};
 
 export type ExcelDownloadButtonProps = {
   fileName: string;
-  fileExtension?: FileExtensionType;
   data: CellType[][];
+  options?: ExcelFileOptions;
   style?: React.CSSProperties;
   element?: React.ReactElement;
-  options?: SheetOptions;
 };
 
 export type ColumnsType<TData = Record<string, unknown>> = {

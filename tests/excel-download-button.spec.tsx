@@ -20,8 +20,8 @@ describe('ExcelDownloadButton', () => {
     render(
       <ExcelDownloadButton
         fileName={fileName}
-        fileExtension="csv"
         data={fakeData}
+        options={{ extension: 'csv' }}
       />
     );
     expect(screen.getByText('CSV Download')).toBeInTheDocument();

@@ -1,31 +1,34 @@
 import React from 'react';
 
-import Sheet from './sheet';
-import { ExcelDownloadButtonProps } from './types';
+import ExcelFile from './excel-file';
+import { ExcelDownloadButtonProps, FileExtensionType } from './types';
 
 function ExcelDownloadButton({
   fileName,
-  fileExtension = 'xlsx',
   data,
+  options,
   style,
   element,
-  options,
 }: ExcelDownloadButtonProps) {
   const handleClick = () => {
-    const sheet = new Sheet(fileName, data, options);
-    sheet.download(fileExtension);
+    const excelFile = new ExcelFile(fileName, data, options);
+    excelFile.download(options?.extension);
   };
 
-  const renderDefaultButton = () => {
+  const renderDefaultButton = (extension: FileExtensionType = 'xlsx') => {
     const label = {
       xlsx: 'Excel',
       csv: 'CSV',
-    }[fileExtension];
+    }[extension];
 
     return <button style={style}>{label} Download</button>;
   };
 
-  return <span onClick={handleClick}>{element || renderDefaultButton()}</span>;
+  return (
+    <span onClick={handleClick}>
+      {element || renderDefaultButton(options?.extension)}
+    </span>
+  );
 }
 
 export default ExcelDownloadButton;
