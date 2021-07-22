@@ -1,7 +1,7 @@
 import { CellType, ColumnsType } from '../types';
 
 export const formatTableAOA = <TData = Record<string, unknown>>(
-  data: TData[],
+  data: TData[] = [],
   columns: ColumnsType<TData>
 ): CellType[][] => {
   const columnsRow: string[] = columns.map(({ label }) => label);
