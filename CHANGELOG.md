@@ -28,3 +28,7 @@
 
 - format null data to '' for default (44e4df5)
 - fix small bug
+
+## 0.0.5 (2021-07-22)
+
+- add sheetoptions to add date time end of the file name (94b7e10)
