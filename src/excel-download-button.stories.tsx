@@ -25,6 +25,7 @@ export const Default = DefaultTemplate.bind({});
 Default.args = {
   fileName: 'new_excel_file',
   data,
+  options: { isFileNameHasDateTime: true },
 };
 
 export const withStyle = () => {
