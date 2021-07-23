@@ -33,3 +33,8 @@
 
 - change class name Sheet -> ExcelFile (e255f5e)
 - add ExcelFileOptions (94b7e10)
+
+## 0.0.6 (2021-07-23)
+
+- rename formatTableAOA -> formatTable
+- rename ColumnsType -> ExcelColumnsType
