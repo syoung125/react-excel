@@ -38,3 +38,7 @@
 
 - rename formatTableAOA -> formatTable
 - rename ColumnsType -> ExcelColumnsType
+
+## 0.0.7 (2021-07-23)
+
+- change xlsx dependencies to peerDependencies (eac4ad2)
