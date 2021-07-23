@@ -1,7 +1,7 @@
 name: NPM Publish
 
 on:
-  relase:
+  release:
     types: [published]
 
 jobs:
