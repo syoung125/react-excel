@@ -124,7 +124,7 @@ So,formatTable helper is provided to get formatted excel data (array of arrays).
 ```ts
 const formatTable = <TData = Record<string, unknown>>(
   data: TData[],
-  columns: ColumnsType<TData>
+  columns: ExcelColumnsType<TData>
 ): CellType[][];
 ```
 
@@ -148,7 +148,7 @@ const data: MyData[] = [
   },
 ];
 
-const columns: ColumnsType<MyData> = [
+const columns: ExcelColumnsType<MyData> = [
   {
     label: 'ID',
     propName: 'id',
@@ -180,7 +180,7 @@ const aoaData = formatTable(data, columns);
 ### Types
 
 ```ts
-export type ColumnsType<TData = Record<string, unknown>> = {
+export type ExcelColumnsType<TData = Record<string, unknown>> = {
   label: string;
   propName: string;
   mapValue?: (record: TData) => CellType;

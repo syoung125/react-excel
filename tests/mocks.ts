@@ -1,7 +1,7 @@
 import faker from 'faker';
 import dayjs from 'dayjs';
 
-import { ColumnsType } from '../src';
+import { ExcelColumnsType } from '../src';
 
 export const mockAoaData = () => {
   const colLen = faker.datatype.number(100);
@@ -91,7 +91,7 @@ export const mockTableData = () => {
     age: faker.datatype.number(100),
   }));
 
-  const columns: ColumnsType<TData> = [
+  const columns: ExcelColumnsType<TData> = [
     { label: 'P_ID', propName: 'id' },
     {
       label: 'NAME',
