@@ -1,1 +1,1 @@
-export * from './format-table-aoa';
+export * from './format-table';

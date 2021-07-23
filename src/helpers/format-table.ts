@@ -1,8 +1,8 @@
-import { CellType, ColumnsType } from '../types';
+import { CellType, ExcelColumnsType } from '../types';
 
-export const formatTableAOA = <TData = Record<string, unknown>>(
+export const formatTable = <TData = Record<string, unknown>>(
   data: TData[] = [],
-  columns: ColumnsType<TData>
+  columns: ExcelColumnsType<TData>
 ): CellType[][] => {
   const columnsRow: string[] = columns.map(({ label }) => label);
   const rows: CellType[][] = data.map(

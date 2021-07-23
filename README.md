@@ -116,13 +116,13 @@ constructor(name: string, data: CellType[][], options?: ExcelFileOptions)
 
 ## 3. Helper
 
-## formatTableAOA (helper)
+## formatTable (helper)
 
 You will probably want to export table data which is composed of columns and rows.
-So,formatTableAOA helper is provided to get formatted table array of arrays.
+So,formatTable helper is provided to get formatted excel data (array of arrays).
 
 ```ts
-const formatTableAOA = <TData = Record<string, unknown>>(
+const formatTable = <TData = Record<string, unknown>>(
   data: TData[],
   columns: ColumnsType<TData>
 ): CellType[][];
@@ -166,7 +166,7 @@ const columns: ColumnsType<MyData> = [
   },
 ];
 
-const aoaData = formatTableAOA(data, columns);
+const aoaData = formatTable(data, columns);
 /**
  *  aoaData output
  * [

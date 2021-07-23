@@ -13,7 +13,7 @@ export type ExcelDownloadButtonProps = {
   element?: React.ReactElement;
 };
 
-export type ColumnsType<TData = Record<string, unknown>> = {
+export type ExcelColumnsType<TData = Record<string, unknown>> = {
   label: string;
   propName: string;
   mapValue?: (record: TData) => CellType;

@@ -1,10 +1,10 @@
-import { formatTableAOA } from '../../src';
+import { formatTable } from '../../src';
 import { mockTableData } from '../mocks';
 
-describe('formatTableAOA', () => {
+describe('formatTable', () => {
   const mock = mockTableData();
   it('returns proper table data format', () => {
-    const result = formatTableAOA(mock.data, mock.columns);
+    const result = formatTable(mock.data, mock.columns);
     expect(result).toEqual(mock.result);
   });
 });
