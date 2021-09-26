@@ -38,7 +38,7 @@
     "@typescript-eslint/eslint-plugin": "4.28.3",
     "@typescript-eslint/parser": "4.28.3",
     "babel-loader": "8.2.2",
-    "dayjs": "1.10.6",
+    "dayjs": "1.10.7",
     "eslint": "7.31.0",
     "eslint-config-prettier": "8.3.0",
     "faker": "5.5.3",
